@@ -128,13 +128,16 @@
 						<img class="fragment" src="img/hdfs.png" style="height: 80px;">
 						<img class="fragment" src="img/presto.png" style="height: 80px;">
 					</section>
+					<section>
+						<h5><code class="fragment"><a href="https://github.com/digitalocean">https://github.com/digitalocean</a></code></h5>
+					</section>					
 				</section>
 				<section data-background-image="img/bg2.png" data-background-opacity=0.5 data-transition="zoom-out">
 					<h5><code>Service Level Management (SLM)</code></h5>
 				</section>
 				<section data-background-image="img/bg2.png" data-background-opacity=0.2 data-transition="zoom-in">
 					<h5><code>Service Level Management (SLM)</code></h5>
-					<section data-markdown data-transition="fade-in fade-out">
+					<section data-markdown data-transition="fade-in fade-out" data-notes="A program of work coordinated by the Observability Applications team to measure and surface performance and reliability information that drives actionable insight.">
 						|      | SLM |      |
 						|------|-----|------|
 						| SLAs |     | SLOs |
@@ -311,7 +314,7 @@ services:
 						<h5>&nbsp;</h5>
 						<img src="img/kafka_streaming_architecture.svg">
 					</section>
-					<section data-transition="fade-out">
+					<section data-transition="fade-out" data-notes="In regards to RDBMS solutions, they're still prevalent at DO, but we're in the process of a multi-year decoupling of data from a monolithic database into distributed microservices and lifecycle events.  Hence, we need to architect our systems for that future.">
 						<ul style="text-align: left; font-size: 32px;">
 							<li class="fragment">Caveat: data retention buffers</li>
 						</ul>
@@ -330,7 +333,7 @@ services:
 							<img src="img/prometheus-logo-square.png" style="height: 60px; vertical-align: bottom;"> + <img src="img/python.png" style="height: 60px; vertical-align: bottom;">
 						</p>
 					</h5>
-					<section data-markdown data-transition="zoom-out" data-transition-speed="slow">
+					<section data-markdown data-transition="zoom-out" data-transition-speed="slow" data-notes="we use the basic python requests module to pull from the exposed HTTP endpoints">
 						```python
 						prom_data_payload = json.loads(
 							requests.get(full_prometheus_query_string, timeout=50))\
@@ -344,7 +347,7 @@ services:
 							<img src="img/python.png" style="height: 60px; vertical-align: bottom;"> + <img src="img/pandas_logo.png" style="height: 60px; vertical-align: bottom;">
 						</p>
 					</h5>
-					<section data-markdown data-transition="zoom-out" data-transition-speed="slow">
+					<section data-markdown data-transition="zoom-out" data-transition-speed="slow" data-notes="here, we are parsing the resultant dictionary and structuring it into a pandas dataframe - guilty as charged as a former data scientist/engineer">
 						```python
 						for timeseries in prom_data_payload:
 							
@@ -369,7 +372,7 @@ services:
 							<img src="img/python.png" style="height: 60px; vertical-align: bottom;"> + <img src="img/pandas_logo.png" style="height: 60px; vertical-align: bottom;"> + <img src="img/spark_logo.png" style="height: 60px; vertical-align: bottom;">
 						</p>
 					</h5>
-					<section data-markdown data-transition="fade-out" data-transition-speed="slow">
+					<section data-markdown data-transition="fade-out" data-transition-speed="slow" data-notes="Spark 2.3 - one of the more exciting recent releases for us - incorporating Pandas UDFs!  previously, we were hitting bottlenecks at scale when trying to perform vanilla groupby.apply()s">
 						```python
 						@F.pandas_udf(df_fixed.schema, F.PandasUDFType.GROUPED_MAP)
 						def resample_by_ts(x):
@@ -487,14 +490,14 @@ services:
 	}
 						</code></pre>
 					</section>
-					<section data-transition="convex-in convex-out">
+					<section data-transition="convex-in convex-out" data-notes="Pandora Pull">
 						<img src="img/slm_pandora_pull.svg" height="480px;">
 					</section>
-					<section data-transition="convex-in convex-out">
+					<section data-transition="convex-in convex-out" data-notes="Downtime ETL - includes Server SLA Coverage _and_ Droplet Lifetime">
 						<img src="img/slm_downtime_etl.svg" height="480px;">
 					</section>
 					<section data-transition="convex-in convex-out">
-						<img src="img/slm_droplet_api.svg" height="480px;">
+						<img src="img/slm_droplet_api.svg" height="480px;" data-notes="API to pull droplet reliability data at multiple levels of aggregation; written in Rust (first PrestoDB client to do so - we're planning to open-source this in the coming months)">
 					</section>
 				</section>
 				<section data-background-image="img/bg2.png" data-background-opacity=0.3>
@@ -542,7 +545,7 @@ services:
 					</section>
 				</section>
 
-				<section data-background-image="img/bg4.png" data-background-opacity=0.5>
+				<section data-background-image="img/bg4.png" data-background-opacity=0.5 data-notes="1. Onboard all products/services into our portfolio - standardize how they expose data.   2. Warehouse all the data on HDFS.  3. Build an API that exposes data endpoints that continue to be USEFUL for consumers.  Aggregations and granularity are both important.">
 					<h5><code>Next Steps in Observability Applications</code></h5>
 				</section>
 
@@ -570,7 +573,7 @@ services:
 					<section data-transition="fade-in fade-out" data-transition-speed="slow">
 						<img src="img/observatorium_consumers_all.svg">
 					</section>
-					<section data-transition="fade-in fade-out" data-transition-speed="slow">
+					<section data-transition="fade-in fade-out" data-transition-speed="slow" data-notes="AIOps">
 						<img src="img/observatorium_future_1.svg">
 					</section>
 					<section data-transition="fade-in fade-out" data-transition-speed="slow">
@@ -622,7 +625,7 @@ services:
 				],
 				fragmentInURL: false,
 				slideNumber: true,
-				history: true,
+				history: false,
 				transition: 'fade', // none/fade/slide/convex/concave/zoom
 				transitionSpeed: 'slow' // default/fast/slow
 			});
